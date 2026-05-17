@@ -284,7 +284,7 @@ ul { list-style: none; }
   align-items: center;
   justify-content: center;
   gap: 12px;
-  color: var(--slate);
+  color: var(--text-slate);
   font-size: 0.8rem;
   font-family: var(--font-body);
   letter-spacing: 0.1em;
@@ -392,7 +392,7 @@ ul { list-style: none; }
 .talks-header p {
   font-family: var(--font-body);
   font-size: 1rem;
-  color: var(--slate);
+  color: var(--text-slate);
   line-height: 1.6;
 }
 
@@ -506,7 +506,7 @@ ul { list-style: none; }
 .audiences-header p {
   font-family: var(--font-body);
   font-size: 1rem;
-  color: var(--slate);
+  color: var(--text-slate);
   line-height: 1.6;
 }
 
@@ -553,7 +553,7 @@ ul { list-style: none; }
   font-family: var(--font-text);
   font-size: 0.9rem;
   font-style: italic;
-  color: var(--slate);
+  color: var(--text-slate);
   margin-bottom: 20px;
 }
 
@@ -637,7 +637,7 @@ ul { list-style: none; }
 .testimonial-placeholder {
   font-family: var(--font-body);
   font-size: 0.88rem;
-  color: var(--slate);
+  color: var(--text-slate);
   font-style: italic;
   margin-bottom: 12px;
   line-height: 1.6;
@@ -687,7 +687,7 @@ ul { list-style: none; }
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--slate);
+  color: var(--text-slate);
   text-align: center;
   line-height: 1.4;
 }
@@ -746,7 +746,7 @@ ul { list-style: none; }
 .media-card-detail {
   font-family: var(--font-body);
   font-size: 0.82rem;
-  color: var(--slate);
+  color: var(--text-slate);
   line-height: 1.5;
 }
 
@@ -863,7 +863,7 @@ ul { list-style: none; }
 .contact-left > p {
   font-family: var(--font-body);
   font-size: 1rem;
-  color: var(--slate);
+  color: var(--text-slate);
   line-height: 1.7;
   margin-bottom: 40px;
   max-width: 420px;
@@ -958,7 +958,7 @@ ul { list-style: none; }
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--slate);
+  color: var(--text-slate);
 }
 
 /* ── FOOTER ─────────────────────────────────────────────────── */
