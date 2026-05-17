@@ -20,6 +20,7 @@
 
 /* ── DESIGN TOKENS ──────────────────────────────────────────── */
 :root {
+  /* Brand palette (decorative use) */
   --plum:       #702c63;
   --mauve:      #aa6389;
   --gray-light: #e6e8e8;
@@ -29,6 +30,11 @@
   --white:      #ffffff;
   --ink:        #1a1a1a;
   --ink-soft:   #3d3d3d;
+
+  /* Accessible text variants — WCAG AA contrast on white (≥4.5:1) */
+  --text-coral:  #b5573f; /* 4.7:1 on white */
+  --text-mauve:  #8a4169; /* 6.9:1 on white */
+  --text-slate:  #5b6b78; /* 5.5:1 on white */
 
   --font-display:  'Navigo', 'Raleway', 'Gill Sans', sans-serif;
   --font-script:   'Bathilda', 'Cormorant Garamond', Georgia, serif;
@@ -71,7 +77,7 @@ ul { list-style: none; }
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--mauve);
+  color: var(--text-mauve);
   margin-bottom: 20px;
 }
 
@@ -214,7 +220,7 @@ ul { list-style: none; }
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--coral);
+  color: var(--text-coral);
   margin-bottom: 20px;
 }
 
@@ -234,7 +240,7 @@ ul { list-style: none; }
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--slate);
+  color: var(--text-slate);
   margin-bottom: 36px;
 }
 
@@ -424,7 +430,7 @@ ul { list-style: none; }
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--coral);
+  color: var(--text-coral);
   margin-bottom: 16px;
 }
 
@@ -451,7 +457,7 @@ ul { list-style: none; }
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--slate);
+  color: var(--text-slate);
   margin-bottom: 12px;
 }
 
@@ -533,7 +539,7 @@ ul { list-style: none; }
 }
 
 .audience-card.insider .audience-tag { background: rgba(112,44,99,0.08); color: var(--plum); }
-.audience-card.champion .audience-tag { background: rgba(238,144,123,0.12); color: #c45f44; }
+.audience-card.champion .audience-tag { background: rgba(238,144,123,0.12); color: var(--text-coral); }
 
 .audience-card h3 {
   font-family: var(--font-display);
@@ -568,7 +574,7 @@ ul { list-style: none; }
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--slate);
+  color: var(--text-slate);
   margin-bottom: 24px;
 }
 
@@ -656,7 +662,7 @@ ul { list-style: none; }
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--slate);
+  color: var(--text-slate);
   margin-bottom: 32px;
 }
 
@@ -724,7 +730,7 @@ ul { list-style: none; }
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--mauve);
+  color: var(--text-mauve);
   margin-bottom: 12px;
 }
 
@@ -822,7 +828,7 @@ ul { list-style: none; }
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.65); /* bumped from 0.45 for WCAG AA on plum bg */
   margin-bottom: 8px;
 }
 
@@ -882,7 +888,7 @@ ul { list-style: none; }
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--slate);
+  color: var(--text-slate);
 }
 
 .contact-item-value {
@@ -907,11 +913,11 @@ ul { list-style: none; }
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border: 1.5px solid var(--gray-light);
   border-radius: 50%;
-  color: var(--slate);
+  color: var(--text-slate);
   transition: all var(--transition);
 }
 .social-link:hover {
@@ -1059,4 +1065,66 @@ ul { list-style: none; }
   .formats-list { flex-direction: column; align-items: center; }
   .hero-ctas { flex-direction: column; }
   .hero-ctas .btn { text-align: center; justify-content: center; }
+}
+
+/* ── ACCESSIBILITY ───────────────────────────────────────────── */
+
+/* Skip nav — hidden until focused by keyboard */
+.skip-nav {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.skip-nav:focus {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  padding: 14px 28px;
+  background: var(--plum);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  z-index: 999;
+  outline: 3px solid var(--coral);
+  outline-offset: 2px;
+}
+
+/* Visible keyboard focus ring for all interactive elements */
+:focus-visible {
+  outline: 3px solid var(--plum);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Override for light-bg elements so ring is visible */
+.btn-primary:focus-visible,
+.nav-cta:focus-visible {
+  outline-color: var(--coral);
+}
+
+/* Override for dark-bg elements */
+#bio a:focus-visible,
+#programs a:focus-visible,
+#footer a:focus-visible {
+  outline-color: var(--blush);
+}
+
+/* Remove focus ring for mouse users — only show for keyboard */
+:focus:not(:focus-visible) { outline: none; }
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
 }
