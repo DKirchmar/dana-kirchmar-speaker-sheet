@@ -176,7 +176,8 @@ ul { list-style: none; }
 }
 .nav-links a:hover { color: var(--plum); }
 
-.nav-cta { margin-left: 12px; }
+.nav-cta { margin-left: 12px; color: var(--white); }
+.nav-cta:hover { color: var(--white); }
 
 .nav-hamburger {
   display: none;
