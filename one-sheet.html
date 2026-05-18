@@ -342,34 +342,44 @@
 
     /* ── PRINT STYLES ── */
     @media print {
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
       html, body {
+        margin: 0;
+        padding: 0;
         width: 8.5in;
         height: 11in;
         overflow: hidden;
         background: white;
       }
-      .print-bar { display: none; }
+
+      .print-bar { display: none !important; }
+
+      /* Pull page-wrap out of document flow so browser sees 0 document height */
       .page-wrap {
+        position: fixed;
+        top: 0;
+        left: 0;
         margin: 0;
         padding: 0;
         width: 8.5in;
         height: 11in;
-        max-width: 100%;
         overflow: hidden;
       }
+
       .one-sheet {
         width: 8.5in;
         height: 11in;
         aspect-ratio: unset;
         overflow: hidden;
         box-shadow: none;
-        page-break-after: avoid;
-        page-break-inside: avoid;
       }
+
       .os-body, .os-main, .os-sidebar {
         overflow: hidden;
         min-height: 0;
       }
+
       @page {
         size: letter portrait;
         margin: 0;
