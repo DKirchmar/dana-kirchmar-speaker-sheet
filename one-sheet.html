@@ -373,7 +373,11 @@
         overflow: hidden;
         contain: strict;
         box-shadow: none;
+        -webkit-print-color-adjust: exact;
       }
+
+      /* Safari: hide its default header/footer area */
+      .print-bar, header, footer { display: none !important; }
 
       .os-body, .os-main, .os-sidebar {
         overflow: hidden;
@@ -429,7 +433,7 @@
 
   <!-- Screen-only print bar -->
   <div class="print-bar" aria-hidden="true">
-    <span>Save as PDF using your browser's print dialog</span>
+    <span>In Safari: Show Details → uncheck Headers &amp; Footers → Margins: None</span>
     <button onclick="window.print()">Save as PDF</button>
     <a href="index.html">&larr; Back to Speaker Sheet</a>
   </div>
