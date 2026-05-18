@@ -99,7 +99,7 @@ ul { list-style: none; }
 
 .btn-primary {
   background: var(--plum);
-  color: var(--white);
+  color: var(--white) !important;
   border-color: var(--plum);
 }
 .btn-primary:hover {
