@@ -344,18 +344,29 @@
     @media print {
       * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 
-      html, body {
+      @page {
+        size: letter portrait;
+        margin: 0;
+      }
+
+      html {
         margin: 0;
         padding: 0;
-        width: 8.5in;
+        overflow: hidden;
         height: 11in;
+      }
+
+      /* height:0 collapses document flow to nothing — no second page possible */
+      body {
+        margin: 0 !important;
+        padding: 0 !important;
+        height: 0 !important;
         overflow: hidden;
         background: white;
       }
 
       .print-bar { display: none !important; }
 
-      /* Pull page-wrap out of document flow so browser sees 0 document height */
       .page-wrap {
         position: fixed;
         top: 0;
@@ -378,11 +389,6 @@
       .os-body, .os-main, .os-sidebar {
         overflow: hidden;
         min-height: 0;
-      }
-
-      @page {
-        size: letter portrait;
-        margin: 0;
       }
 
       /* Header: white bg, dark text, plum border accent */
@@ -414,6 +420,28 @@
   </style>
 </head>
 <body>
+
+  <script>
+    // Scale one-sheet to fit exactly one printed page if content is too tall
+    function fitToPage() {
+      const sheet = document.querySelector('.one-sheet');
+      const wrap  = document.querySelector('.page-wrap');
+      const pageW = wrap.offsetWidth  || 816;
+      const pageH = wrap.offsetHeight || 1056;
+      sheet.style.transform = '';
+      const scaleX = pageW  / sheet.scrollWidth;
+      const scaleY = pageH / sheet.scrollHeight;
+      const scale  = Math.min(scaleX, scaleY, 1);
+      if (scale < 1) {
+        sheet.style.transform       = `scale(${scale})`;
+        sheet.style.transformOrigin = 'top left';
+      }
+    }
+    window.addEventListener('beforeprint', fitToPage);
+    window.addEventListener('afterprint',  () => {
+      document.querySelector('.one-sheet').style.transform = '';
+    });
+  </script>
 
   <!-- Screen-only print bar -->
   <div class="print-bar" aria-hidden="true">
