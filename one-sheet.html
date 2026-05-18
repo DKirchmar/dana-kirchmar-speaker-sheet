@@ -349,33 +349,21 @@
         margin: 0;
       }
 
-      html {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        height: 11in;
-      }
-
-      /* height:0 collapses document flow to nothing — no second page possible */
-      body {
+      html, body {
         margin: 0 !important;
         padding: 0 !important;
-        height: 0 !important;
-        overflow: hidden;
         background: white;
       }
 
       .print-bar { display: none !important; }
 
       .page-wrap {
-        position: fixed;
-        top: 0;
-        left: 0;
         margin: 0;
         padding: 0;
         width: 8.5in;
         height: 11in;
         overflow: hidden;
+        contain: strict;
       }
 
       .one-sheet {
@@ -383,6 +371,7 @@
         height: 11in;
         aspect-ratio: unset;
         overflow: hidden;
+        contain: strict;
         box-shadow: none;
       }
 
@@ -422,24 +411,19 @@
 <body>
 
   <script>
-    // Scale one-sheet to fit exactly one printed page if content is too tall
-    function fitToPage() {
+    // Use zoom (affects layout, not just visuals) to ensure single page
+    window.addEventListener('beforeprint', function () {
       const sheet = document.querySelector('.one-sheet');
-      const wrap  = document.querySelector('.page-wrap');
-      const pageW = wrap.offsetWidth  || 816;
-      const pageH = wrap.offsetHeight || 1056;
-      sheet.style.transform = '';
-      const scaleX = pageW  / sheet.scrollWidth;
-      const scaleY = pageH / sheet.scrollHeight;
-      const scale  = Math.min(scaleX, scaleY, 1);
-      if (scale < 1) {
-        sheet.style.transform       = `scale(${scale})`;
-        sheet.style.transformOrigin = 'top left';
-      }
-    }
-    window.addEventListener('beforeprint', fitToPage);
-    window.addEventListener('afterprint',  () => {
-      document.querySelector('.one-sheet').style.transform = '';
+      const PAGE_H = 11 * 96; // 11in @ 96dpi = 1056px
+      const PAGE_W = 8.5 * 96;
+      sheet.style.zoom = '';
+      const h = sheet.scrollHeight;
+      const w = sheet.scrollWidth;
+      const scale = Math.min(PAGE_W / w, PAGE_H / h, 1);
+      if (scale < 1) sheet.style.zoom = scale.toFixed(6);
+    });
+    window.addEventListener('afterprint', function () {
+      document.querySelector('.one-sheet').style.zoom = '';
     });
   </script>
 
